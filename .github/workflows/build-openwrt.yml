@@ -13,13 +13,13 @@ on:
     types: published
   push:
     branches:
-      - dev-19.07
+      - master
     paths:
       - '.config'
 #  schedule:
 #    - cron: 0 8 * * 5
- watch:
-   types: started
+#  watch:
+#    types: started
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
@@ -27,13 +27,14 @@ env:
   CONFIG_FILE: .config
   DIY_SH: diy.sh
   SSH_ACTIONS: true
-  UPLOAD_BIN_DIR: true
+  UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - name: Checkout
